@@ -20,15 +20,22 @@ To set the stripe width, we need to set the y-position that encodes that stripe 
 
 ``Panel_com('set_position', [1 pattern_y_pos]);``
 
-The 1 is an arbitrary start position in the horizontal (x) direction. The variable ‘pattern_y_pos’ will be the address of our narrow or broad stripes: either 2 or 6.
+The 1 is an arbitrary start position in the horizontal (x) direction. The variable 'pattern_y_pos' will be the address of our narrow or broad stripes: either 2 or 6.
 
 To set the pattern velocity, we will use this command:
+
 ``Panel_com('send_gain_bias', [speed_OL, 0, 0, 0]);``
+
 Where 'speed-OL' is the horizontal velocity of the stripes.
-In addition, we need to make sure the controller is in open-loop mode – the stripes move at a constant velocity regardless of the behavior of the fly (this is why we called the variable OL). This mode is encoded by the value 0. Later we will discuss other modes of operation.
+
+In addition, we need to make sure the controller is in open-loop mode - the stripes move at a constant velocity regardless of the behavior of the fly (this is why we called the variable OL). This mode is encoded by the value 0. Later we will discuss other modes of operation.
+
 ``Panel_com('set_mode', [ 0 0 ]);``
-Once these parameters are set, all we need to do is start the pattern motion, wait for a period of time during which we will record the fly’s response, then stop the pattern and move on to the next trial:
+
+Once these parameters are set, all we need to do is start the pattern motion, wait for a period of time during which we will record the fly's response, then stop the pattern and move on to the next trial:
+
 ``panel_com('start');``
 ``pause(time_opto);``
 ``Panel_com('stop');``
+
 One last important note: We have discussed the construction of a script to run an arena experiment, but of course we need to record the response of the fly for later analysis. We use axoscope to record data, so always remember to start the axoscope recording before starting the experiment in MATLAB!
