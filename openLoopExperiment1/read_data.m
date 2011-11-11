@@ -1,4 +1,4 @@
-%function [stimulus_speed, stimulus_wavelength, LminusR, num_trials] = read_data(filename)
+function [stimulus_speed, stimulus_wavelength, LminusR, num_trials] = read_data(filename)
 % [stimulus_speed, stimulus_wavelength, LminusR, num_trials] = read_data(filename);
 
 WB_THRESH = 1.0; % used to determine if fly was flying
