@@ -42,7 +42,7 @@ pattern.Panel_map = flipud(reshape(A, 4, 12));
 %     1     5     9    13    17    21    25    29    33    37    41    45
 
 pattern.BitMapIndex = process_panel_map(pattern);
-pattern.data = make_pattern_vector(pattern);
+pattern.data = Make_pattern_vector(pattern);
 
 directory_name = 'c:\matlabroot\Panels\Patterns';
 str = [directory_name '\Pattern_multi_width_optomotor_48panels']
