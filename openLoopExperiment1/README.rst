@@ -12,9 +12,9 @@ We will examine how flies respond to a pattern of vertical stripes rotating arou
 
 First we need to display the correct pattern (the one with multiple stripes whose id is 2):
 
-``Panel_com('set_pattern_id', optomotor_Pat);``
+``Panel_com('set_pattern_id', OL_Pat);``
 
-Where 'optomotor_Pat' is a variable whose value is 2.
+Where 'OL_Pat' is a variable whose value is 2.
 
 To set the stripe width, we need to set the y-position that encodes that stripe width using the following command:
 
@@ -35,7 +35,7 @@ In addition, we need to make sure the controller is in open-loop mode - the stri
 Once these parameters are set, all we need to do is start the pattern motion, wait for a period of time during which we will record the fly's response, then stop the pattern and move on to the next trial:
 
 ``panel_com('start');``
-``pause(time_opto);``
+``pause(time_OL);``
 ``Panel_com('stop');``
 
 One last important note: We have discussed the construction of a script to run an arena experiment, but of course we need to record the response of the fly for later analysis. We use axoscope to record data, so always remember to start the axoscope recording before starting the experiment in MATLAB!
