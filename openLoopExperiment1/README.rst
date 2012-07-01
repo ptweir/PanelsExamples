@@ -26,7 +26,7 @@ To set the pattern velocity, we will use this command:
 
 ``Panel_com('send_gain_bias', [speed_OL, 0, 0, 0]);``
 
-Where 'speed-OL' is the horizontal velocity of the stripes.
+Where 'speed_OL' is the horizontal velocity of the stripes.
 
 In addition, we need to make sure the controller is in open-loop mode - the stripes move at a constant velocity regardless of the behavior of the fly (this is why we called the variable OL). This mode is encoded by the value 0. Later we will discuss other modes of operation.
 
