@@ -16,13 +16,14 @@ AO2 = data(:,7);
 %% translate analog values into codes for trial types and times
 MIN_ANALOG_VALUE = 0;
 
-WAVELENGTHS = [NaN 30 120];
+WAVELENGTHS = [NaN 15 60];
 % hist(AO1,300); pts=ginput(length(WAVELENGTHS)); WL_CODES = pts(:,1);
 % WL_CODES = [0.0985 1.4464 4.1941];
 WL_CODES = linspace(min(AO1(AO1>MIN_ANALOG_VALUE)),max(AO1),length(WAVELENGTHS));
 
 NUM_PIXELS = 12*8;
-SPEEDS = [NaN -2 -4 -8 -16 -24 -32 -64 -127 2 4 8 16 24 32 64 127]*360/NUM_PIXELS; % converted to degrees/second
+% SPEEDS = [NaN -2 -4 -8 -16 -24 -32 -64 -127 2 4 8 16 24 32 64 127]*360/NUM_PIXELS; % converted to degrees/second
+SPEEDS = [NaN -5 -10 -20 -40 -80 -160 -320 -444.5 5 10 20 40 80 160 320 444.5]; % in frames (pixels) per second
 % hist(AO2,300); pts=ginput(length(SPEEDS)); SP_CODES = pts(:,1);
 % SP_CODES = [0.0930 0.3425 0.5965 0.8460 1.1046 1.3722 1.6263 1.8758 2.1298 2.4020 2.6469 2.9010 3.1550 3.4272 3.6767 3.9307 4.1802]; % voltage codes for speeds
 % SP_CODES = [0.0197 0.09 0.3090 0.6618 1.2686 1.5862 1.9037 2.1860 2.5176 2.8422 3.1668 3.4844 3.7878 4.1053 4.4299 4.7404 5.0791];
