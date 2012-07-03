@@ -1,6 +1,6 @@
 % OL_optomotor_permute_speeds_spfreqs
 
-% NS&B, July 2012, an HR EMD tuning experiment
+% NS&B, July 2012, a Hassenstein-Reichardt elementary motion detector experiment
 % Pattern used are:
 % Pattern_multi_width_optomotor_48panels.mat
 %       different grating widths are stored in the Y axis
@@ -27,9 +27,7 @@ num_repeats = 1; %how many times to repeat the whole sequence
 
 CL_gain_x = -20; CL_bias_x = 0; CL_gain_y = 0; CL_bias_y = 0;% parameters for closed loop stripe fixation
 
-%speeds = [-2 -5 -10 -20 -40 -80 -120 2 5 10 20 40 80 120]; % in frames (pixels) per second
 %speeds = [-2 -4 -8 -16 -24 -32 -64 -127  2 4 8 16 24 32 64 127]; % in frames (pixels) per second
-%speeds = [-2 -4 -8 -16 -24 -32 -64 -128 -256 -512 2 4 8 16 24 32 64 128 256 512]; % in frames (pixels) per second
 speeds = [-5 -10 -20 -40 -80 -160 -320 -444.5 5 10 20 40 80 160 320 444.5]; % in frames (pixels) per second
 y_grating_widths = [1 7]; % "y positions" encoding grating widths we will use in this experiment
 
@@ -59,7 +57,7 @@ for i = 1:length(speeds) % encode the pattern and speed identifiers
         cond_num = cond_num + 1;
     end
 end
-%%
+%
 AO = analogoutput('mcc',0);
 ch = addchannel(AO, [0 1]); % build a two-channel analog output object
 AO_range = ch(1).OutputRange;
