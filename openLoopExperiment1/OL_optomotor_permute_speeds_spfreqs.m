@@ -31,10 +31,10 @@ CL_gain_x = -20; CL_bias_x = 0; CL_gain_y = 0; CL_bias_y = 0;% parameters for cl
 %speeds = [-2 -4 -8 -16 -24 -32 -64 -127  2 4 8 16 24 32 64 127]; % in frames (pixels) per second
 %speeds = [-2 -4 -8 -16 -24 -32 -64 -128 -256 -512 2 4 8 16 24 32 64 128 256 512]; % in frames (pixels) per second
 speeds = [-5 -10 -20 -40 -80 -160 -320 -444.5 5 10 20 40 80 160 320 444.5]; % in frames (pixels) per second
-y_grating_widths = [1 5]; % "y positions" encoding grating widths we will use in this experiment
+y_grating_widths = [1 7]; % "y positions" encoding grating widths we will use in this experiment
 
 exp_time = speeds*numel(y_grating_widths)*(time_OL + time_CL);
-num_conditions = length(speeds)*length(y_grating_widths); %7*4 = 28
+num_conditions = length(speeds)*length(y_grating_widths); %16*2 = 32
 
 cond_num = 1;
 for i = 1:length(speeds) % encode the pattern and speed identifiers
@@ -61,29 +61,29 @@ for i = 1:length(speeds) % encode the pattern and speed identifiers
 end
 %%
 AO = analogoutput('mcc',0);
-ch = addchannel(AO, [0 1]); %build a two-channel DAC
+ch = addchannel(AO, [0 1]); % build a two-channel analog output object
 AO_range = ch(1).OutputRange;
 AO_max = AO_range(2);
 
-Panel_com('set_mode', [1 0]); % closed loop in x, open loop in y
+Panel_com('set_mode', [1 0]); % closed loop in x (1), open loop in y (0)
 Panel_com('send_gain_bias', [CL_gain_x, CL_bias_x, CL_gain_y, CL_bias_y]);
 
 Panel_com('set_pattern_id', CL_Pat);
 Panel_com('stop');
 
-putsample(AO, [0 0]); % send 0Volts to both DAC channels
+putsample(AO, [0 0]); % send 0 Volts to both analog output channels
 Panel_com('set_position', [48 1]);
 Panel_com('start');
-pause(time_CL); %run closed loop stripe for specified time
+pause(time_CL); % run closed loop stripe for specified time
 Panel_com('stop');
 fprintf('pause \n');
 
 for i = 1:num_repeats
-    rand_ind = randperm(num_conditions); %permute the speed and velocity conditions
+    rand_ind = randperm(num_conditions); % permute the speed and velocity conditions
     for j = 1:num_conditions
         jout = num2str(num_conditions - j);
-        condition_num = rand_ind(j); %select j-th condition
-        speed_OL = condition(condition_num).speed; %select speed to test
+        condition_num = rand_ind(j); % select j-th condition
+        speed_OL = condition(condition_num).speed; % select speed to test
         pattern_y_pos = condition(condition_num).y_grating_width; % remember, different grating widths stored in Y positions
         % print status:
         fprintf(['number conditions left = ' jout ', speed = ',num2str(speed_OL), ', y pos (width) = ', num2str(pattern_y_pos), '\n']);
@@ -92,20 +92,20 @@ for i = 1:num_repeats
         OL_offset_x_this_trial = condition(condition_num).offset;
         Panel_com('set_pattern_id', OL_Pat);
         Panel_com('set_position', [1 pattern_y_pos]);  % no reason to prefer x=1
-        Panel_com('set_mode', [ 0 0 ]);  %open loop
+        Panel_com('set_mode', [ 0 0 ]);  % open loop in both x and y
         Panel_com('send_gain_bias', [OL_gain_x_this_trial, OL_offset_x_this_trial, 0, 0]);
         
-        %this next line sends voltage values to both DAC outputs, one to
-        %encode wavelength (i.e. stripe width) and the other to encode speed
-        %(frames/sec)
+        % this next line sends voltage values to both analog output channels, one to
+        % encode stripe width (i.e. spatial wavelength) and the other to encode speed
+        % (frames/sec)
         putsample(AO, [pattern_y_pos*AO_max/max(y_grating_widths) (condition(condition_num).speed_index)*AO_max/length(speeds)]);
         
         Panel_com('start');
         pause(time_OL); % run trial
         Panel_com('stop');
         
-        putsample(AO, [0 0]);
-        
+        putsample(AO, [0 0]); % send 0 to both analog output channels
+        % go back to closed-loop stripe fixation:
         Panel_com('set_pattern_id', CL_Pat);
         
         Panel_com('set_mode', [ 1 0 ]);
