@@ -1,4 +1,4 @@
-% OL_optomotor_permute_speeds_spfreqs
+% OL_optomotor_permute_speeds_spfreqs.m
 
 % NS&B, July 2012, a Hassenstein-Reichardt elementary motion detector experiment
 % Pattern used are:
@@ -31,7 +31,7 @@ CL_gain_x = -20; CL_bias_x = 0; CL_gain_y = 0; CL_bias_y = 0;% parameters for cl
 speeds = [-5 -10 -20 -40 -80 -160 -320 -444.5 5 10 20 40 80 160 320 444.5]; % in frames (pixels) per second
 y_grating_widths = [1 7]; % "y positions" encoding grating widths we will use in this experiment
 
-exp_time = speeds*numel(y_grating_widths)*(time_OL + time_CL);
+exp_time = numel(speeds)*numel(y_grating_widths)*(time_OL + time_CL);
 num_conditions = length(speeds)*length(y_grating_widths); %16*2 = 32
 
 cond_num = 1;
@@ -57,7 +57,7 @@ for i = 1:length(speeds) % encode the pattern and speed identifiers
         cond_num = cond_num + 1;
     end
 end
-%
+
 AO = analogoutput('mcc',0);
 ch = addchannel(AO, [0 1]); % build a two-channel analog output object
 AO_range = ch(1).OutputRange;
