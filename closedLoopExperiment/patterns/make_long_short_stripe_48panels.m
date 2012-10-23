@@ -1,7 +1,7 @@
 % make_long_short_stripe_48panels
 
 pattern.x_num = 96; 	% There are 96 pixel around the display (12x8) 
-pattern.y_num = 17; 		% frames of Y, number of different spatial frequencies
+pattern.y_num = 17; 		% frames of Y, number of different stripe heights
 pattern.num_panels = 48; 	% This is the number of unique Panel IDs required.
 pattern.gs_val = 1; 	% This pattern will use 2 intensity levels
 pattern.row_compression = 0;
